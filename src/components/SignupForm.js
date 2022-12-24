@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from 'axios'
+import { changeUserName } from "../redux/actions/userActions";
 function SignupForm() {
   const [details, setDetails] = useState({
     email: "",
@@ -7,25 +10,31 @@ function SignupForm() {
     password_confirmation: "",
   });
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch()
   const [isValid, setIsValid] = useState(false);
-  const [random, setRandom] = useState(Math.floor(Math.random() * 2));
   const [signUpError, setSignUpError] = useState("");
   const nav = useNavigate();
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+ useEffect(()=>{
+  if(isValid){
+    axios.post('https://ecommerce-c5lw.onrender.com/api/users/register',{
+    username: details.email,
+     password: details.password,
+     role:'Buyer'
+    }).then((response)=>{
+        dispatch(changeUserName(details.email))
+        alert(`You've successfully signed up.`)
+        nav('/')
+    }).catch(
+      error=> alert(error.response.data.message)
+    )
+  }
+ },[isValid])
   const submitHandler = async (e) => {
     e.preventDefault();
     setErrors(validate(details));
-    setRandom(Math.floor(Math.random() * 2));
-    console.log(random);
-    if (isValid) {
-      if ([true, false][random]) {
-        alert(`You've successfully created your account, Please login`);
-        nav("/");
-      } else {
-        setSignUpError("Email already exists");
-      }
-    }
-  };
+
+  }
   const showError = (name) => {
     switch (name) {
       case "email":

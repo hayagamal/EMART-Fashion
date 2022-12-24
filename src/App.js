@@ -14,7 +14,8 @@ function App() {
       <BrowserRouter>
       <Navbar/>
       <Routes>
-        <Route path="/" exact element={<ProductListing/>}/>
+      <Route path="/" exact element={<ProductListing/>}/>
+        <Route path="/user/:email" element={<ProductListing/>}/>
         <Route path="/product/:productId" exact element={<ProductDetails/>}/>
         <Route path="/cart" exact element={<Cart/>}/>
         <Route>404 Not Found</Route>

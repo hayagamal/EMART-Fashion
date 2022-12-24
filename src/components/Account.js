@@ -5,6 +5,7 @@ import { authorizeUser, addUsers } from "../redux/actions/productActions";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 function Account() {
+ 
   return (
     <div style={{ "padding-top": "100px" }}>
       <div className="Account ui container grid">
