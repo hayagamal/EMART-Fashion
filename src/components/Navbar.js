@@ -60,7 +60,7 @@ function Navbar() {
           </motion.p>
         </div>
         <div className="account">
-          {username?<NavLink to="/signedin" className="user" activeClassName="active">
+          {username?<NavLink className="user" activeClassName="active">
            <p>{username.substring(0, username.indexOf('@'))} </p> 
           </NavLink>: <NavLink to="/login" className="user" activeClassName="active">
             <FaUserAlt />
